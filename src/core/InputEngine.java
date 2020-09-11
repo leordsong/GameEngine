@@ -6,6 +6,9 @@ import javax.swing.*;
 
 import java.util.*;
 
+/**
+ * The input engine
+ */
 public class InputEngine {
     private static InputEngine inputEngine = null;
 
@@ -64,6 +67,7 @@ public class InputEngine {
 
     /**
      * Add the input source to the frame
+     *
      * @param jFrame the current frame
      */
     public void setInputSource(JFrame jFrame) {

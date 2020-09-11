@@ -6,6 +6,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.*;
 
+/**
+ * The rendering engine
+ */
 public class RenderEngine {
     private final JFrame frame;
     private final List<GameObject> sceneGraph = new ArrayList<>();
@@ -24,16 +27,24 @@ public class RenderEngine {
         System.out.println("Window size (" + r.width + ", " + r.height + ")");
     }
 
+    /**
+     * Rendering the scene
+     *
+     * @param gameObjects list of objects to render
+     */
     public void renderScene(List<GameObject> gameObjects) {
         sceneGraph.addAll(gameObjects);
         frame.repaint();
     }
 
+    /**
+     * @return the current frame window
+     */
     public JFrame getWindow() {
         return frame;
     }
 
-    class GamePanel extends JPanel {
+    private class GamePanel extends JPanel {
         private static final long serialVersionUID = 1L;
 
         @Override

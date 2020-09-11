@@ -19,7 +19,7 @@ public class Ball extends GameObject {
     public void start() {
         getTransform().setSize(new Vector2(40, 40));
         Game game = Optional.ofNullable(getGame()).orElseThrow(IllegalStateException::new);
-        game.getAudioEngine().addClip("boing", "C:\\Users\\Leord\\Documents\\GitHub\\GameEngine\\Media\\blip.wav");
+        game.getAudioEngine().addClip("boing", "..\\Media\\blip.wav");
         getTransform().setPosition(new Vector2(Game.WINDOW_WIDTH / 2f, Game.WINDOW_HEIGHT / 2f));
         getMaterial().setColor(Color.RED);
     }

@@ -1,5 +1,8 @@
 package core;
 
+/**
+ * A 2D vector
+ */
 public final class Vector2 {
     private final float x;
     private final float y;
@@ -9,10 +12,16 @@ public final class Vector2 {
         this.y = y;
     }
 
+    /**
+     * @return the x axis
+     */
     public float getX() {
         return x;
     }
 
+    /**
+     * @return the y axis
+     */
     public float getY() {
         return y;
     }

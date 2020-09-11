@@ -3,32 +3,40 @@ package core;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+/**
+ * The physics engine
+ */
 public class PhysicsEngine {
 
     private final Set<CollisionPair> currentCollision = new CopyOnWriteArraySet<>();
 
     /**
-     * Check if the
+     * Check if any two objects are collided with each other
      *
-     * @param gameObjects
+     * @param gameObjects the list of objects to check collision
      */
     public void checkCollisions(List<GameObject> gameObjects) {
         checkAndHandleCollisionEntry(gameObjects);
         checkAndHandleCollisionExit();
     }
 
-    private boolean colliding(GameObject g1, GameObject g2) {
-        Vector2 g1LowLeft = g1.getTransform().getPosition();
-        Vector2 g2LowLeft = g2.getTransform().getPosition();
-        Vector2 g1UpperRight = new Vector2(g1.getTransform().getPosition().getX() + g1.getTransform().getSize().getX(),
-                g1.getTransform().getPosition().getY() + g1.getTransform().getSize().getY());
-        Vector2 g2UpperRight = new Vector2(g2.getTransform().getPosition().getX() + g2.getTransform().getSize().getX(),
-                g2.getTransform().getPosition().getY() + g2.getTransform().getSize().getY());
+    private boolean within(Vector2 p, GameObject g) {
+        return p.getX() >= g.getTransform().getPosition().getX()
+                && p.getX() < g.getTransform().getPosition().getX() + g.getTransform().getSize().getX()
+                && p.getY() >= g.getTransform().getPosition().getY()
+                && p.getY() < g.getTransform().getPosition().getY() + g.getTransform().getSize().getY();
+    }
 
-        return !(g1UpperRight.getX() < g2LowLeft.getX() ||
-                g1LowLeft.getX() > g2UpperRight.getX() ||
-                g1UpperRight.getY() < g2LowLeft.getY() ||
-                g1LowLeft.getX() < g2UpperRight.getX());
+    private boolean colliding(GameObject g1, GameObject g2) {
+        Vector2 ll = g1.getTransform().getPosition();
+        Vector2 lr = new Vector2(g1.getTransform().getPosition().getX() + g1.getTransform().getSize().getX() - 1,
+                g1.getTransform().getPosition().getY());
+        Vector2 ul = new Vector2(g1.getTransform().getPosition().getX(),
+                g1.getTransform().getPosition().getY() + g1.getTransform().getSize().getY() - 1);
+        Vector2 ur = new Vector2(g1.getTransform().getPosition().getX() + g1.getTransform().getSize().getX() - 1,
+                g1.getTransform().getPosition().getY() + g1.getTransform().getSize().getY() - 1);
+
+        return within(ll, g2) || within(lr, g2) || within(ul, g2) || within(ur, g2);
     }
 
     private void checkAndHandleCollisionEntry(List<GameObject> gameObjects) {
