@@ -8,28 +8,30 @@ import java.util.*;
  * The audio engine
  */
 public class AudioEngine {
-	private final Map<String, String> AUDIO_CLIPS = new HashMap<>();
+    private final Map<String, String> AUDIO_CLIPS = new HashMap<>();
 
     /**
      * Add flip to the list
-     * @param clipName the name of the clip
+     *
+     * @param clipName     the name of the clip
      * @param clipFileName the path to the audio file
      */
-	public void addClip(String clipName, String clipFileName) {
-		AUDIO_CLIPS.put(clipName, clipFileName);
-	}
+    public void addClip(String clipName, String clipFileName) {
+        AUDIO_CLIPS.put(clipName, clipFileName);
+    }
 
     /**
      * Play the audio by name
+     *
      * @param clipName the name of the audio clip
      */
-	public void playOneShot(String clipName) {
-		String clipFileName = AUDIO_CLIPS.get(clipName);
-		play(clipFileName);
-	}
-	
+    public void playOneShot(String clipName) {
+        String clipFileName = AUDIO_CLIPS.get(clipName);
+        play(clipFileName);
+    }
+
     private synchronized void play(final String fileName) {
-    	// This code adapted from http://noobtuts.com/java/play-sounds
+        // This code adapted from http://noobtuts.com/java/play-sounds
         // Note: use .wav files             
         new Thread(() -> {
             try {
